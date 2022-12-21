@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "fill form with manifest v3 - write",
+  "version": "1",
+  "permissions": [
+    "tabs"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://www1.sii.cl/cgi-bin/Portal001/mipeGenFacEx.cgi?PTDC_CODIGO=52"],
+      "js": ["content.js"]
+    }
+  ]
+}
