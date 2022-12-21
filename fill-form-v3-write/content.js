@@ -2,10 +2,8 @@
 navigator.clipboard.readText().then(
   (clipText) => {
     let tablaObject = JSON.parse(clipText);
-    //alert(tablaObject);
     //productos
     const fillForm = function () {
-      alert(tablaObject);
       //show all 10 available rows to input products
       const btnAgregaLineaDetalle = document.querySelector("#rowDet_Botones > th > input");
 
