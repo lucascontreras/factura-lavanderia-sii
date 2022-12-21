@@ -2,7 +2,7 @@
 navigator.clipboard.readText().then(
   (clipText) => {
     let tablaObject = JSON.parse(clipText);
-    //productos
+    //fill sii form
     const fillForm = function () {
       //show all 10 available rows to input products
       const btnAgregaLineaDetalle = document.querySelector("#rowDet_Botones > th > input");
@@ -80,6 +80,8 @@ navigator.clipboard.readText().then(
       //click 'validar y visualizar'
       document.querySelector("[name=Button_Update]").dispatchEvent(new MouseEvent('click'));
     }
+
+    //run script on load
     if (window.addEventListener) {window.addEventListener('load', fillForm(), false);}
     else {document.addEventListener('load', fillForm(), false);}
   });
