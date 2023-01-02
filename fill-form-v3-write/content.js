@@ -29,31 +29,7 @@ navigator.clipboard.readText().then(
             .concat("]")
           ).value = tablaObject[productFields[key]][i];
         }
-        /*
-        document.querySelector("[name=EFXP_NMB_".concat(i === 9 ? 10 : "0".concat(i + 1)).concat("]")).value = tablaObject.items[i];
-        document.querySelector("[name=EFXP_QTY_".concat(i === 9 ? 10 : "0".concat(i + 1)).concat("]")).value = tablaObject.cantidades[i];
-        document.querySelector("[name=EFXP_PRC_".concat(i === 9 ? 10 : "0".concat(i + 1)).concat("]")).value = tablaObject.precios[i];
-        document.querySelector("[name=EFXP_SUBT_".concat(i === 9 ? 10 : "0".concat(i + 1)).concat("]")).value = tablaObject.subtotales[i];
-        */
       }
-      //datos emisor (ciudad, fecha, tipo traslado, act. econ.)
-      document.querySelector("[name=cbo_dia_boleta]").value = tablaObject.fecha.split('/')[0];
-      document.querySelector("[name=cbo_mes_boleta]").value = tablaObject.fecha.split('/')[1];
-      document.querySelector("[name=cbo_anio_boleta]").value = tablaObject.fecha.split('/')[2];
-      document.querySelector("[name=EFXP_IND_VENTA]").value = "6";
-      document.querySelector("[name=EFXP_ACTECO_SELECT]").value = "960100";
-        //origen (EF o LE)
-        const origenes = [
-          ["077083249","LOS ESPINOS 2541","MACUL","SANTIAGO","224002722"],
-          ["086147915","EXEQUIEL FERNANDEZ 3685  BOD-G","MACUL","SANTIAGO","222217763"]
-        ];
-        const origen = tablaObject.origen === origenes[0][1] ? 0 : 1;
-
-        document.querySelector("[name=EFXP_CDG_SII_SUCUR]").value = origenes[origen][0];
-        document.querySelector("[name=EFXP_DIR_ORIGEN]").value = origenes[origen][1];
-        document.querySelector("[name=EFXP_CMNA_ORIGEN]").value = origenes[origen][2];
-        document.querySelector("[name=EFXP_CIUDAD_ORIGEN]").value = origenes[origen][3];
-        document.querySelector("[name=EFXP_FONO_EMISOR]").value = origenes[origen][4];
 
       //datos receptor (rut, rs, dirección, giro)
       document.querySelector("[name=EFXP_RUT_RECEP]").value = tablaObject.rut;
@@ -71,12 +47,35 @@ navigator.clipboard.readText().then(
       
       //comments
       document.querySelector("[name=DESCRIP_".concat(tablaObject.items.indexOf("") === -1 ? 10 : "0".concat(tablaObject.items.indexOf(""))).concat("]")).dispatchEvent(new MouseEvent('click'));
-      let comment = "\n" + "GUIA INTERNA: " + tablaObject.guiaInterna;
+      let comment = "GUIA INTERNA: " + tablaObject.guiaInterna;
       for (let i = 0; i < tablaObject.comentario.length; i++) {
-        comment += "\n" + tablaObject.comentario[i];
+        comment += ". " + tablaObject.comentario[i];
       }
       document.querySelector("[name=EFXP_DSC_ITEM_".concat(tablaObject.items.indexOf("") === -1 ? 10 : "0".concat(tablaObject.items.indexOf(""))).concat("]")).value = comment;
 
+      //datos emisor (ciudad, fecha, tipo traslado, act. econ.)
+      document.querySelector("[name=cbo_dia_boleta]").value = tablaObject.fecha.split('/')[0];
+      document.querySelector("[name=cbo_mes_boleta]").value = tablaObject.fecha.split('/')[1];
+      document.querySelector("[name=cbo_anio_boleta]").value = tablaObject.fecha.split('/')[2];
+      document.querySelector("[name=EFXP_IND_VENTA]").value = "6";
+      document.querySelector("[name=EFXP_ACTECO_SELECT]").value = "960100";
+      //   //origen (EF o LE)
+        const origenes = [
+          ["077083249","LOS ESPINOS 2541    ","MACUL","SANTIAGO","224002722"], //está bien que la dirección tenga espacios extra al final
+          ["086147915","EXEQUIEL FERNANDEZ 3685  BOD-G ","MACUL","SANTIAGO","222217763"] //está bien que la dirección tenga espacios extra al final
+        ];
+        // const origen = tablaObject.origen === origenes[0][1] ? 0 : 1;
+        const origen = origenes[0][1].includes(tablaObject.origen) ? 0 : 1;
+
+        document.querySelector("[name=EFXP_DIR_ORIGEN]").value = origenes[origen][1];
+        //document.querySelector("#collapseEMISOR > div > div:nth-child(2) > div.col-sm-6 > div > select").value = origenes[origen][1];
+        document.querySelector("[name=EFXP_CDG_SII_SUCUR]").value = origenes[origen][0];
+        document.querySelector("[name=EFXP_CMNA_ORIGEN]").value = origenes[origen][2];
+        document.querySelector("[name=EFXP_CIUDAD_ORIGEN]").value = origenes[origen][3];
+        document.querySelector("[name=EFXP_FONO_EMISOR]").value = origenes[origen][4];
+        // document.querySelector("[name=EFXP_CIUDAD_ORIGEN]").value = 'SANTIAGO';
+        // document.querySelector("[name=EFXP_FONO_EMISOR]").value = '222217763';
+      
       //click 'validar y visualizar'
       document.querySelector("[name=Button_Update]").dispatchEvent(new MouseEvent('click'));
     }

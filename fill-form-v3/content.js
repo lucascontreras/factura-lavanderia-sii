@@ -15,6 +15,14 @@ const tabla = document.querySelector("#tabla");
 
 const tablaArray = tableToJson(tabla);
 
+const detalleItems = (columna) => {
+  const list = [];
+  for (let i = 3; i <= 12; i++) {
+    list.push(tablaArray[i][columna].trim().replace('$','').replace('<br>',''));
+  }
+  return list;
+}
+
 const tablaObject = {
   cliente : tablaArray[0][0],
   rut : tablaArray[0][1],
@@ -25,12 +33,13 @@ const tablaObject = {
   ciudad : tablaArray[1][2],
   giro : tablaArray[1][3],
   guiaInterna : tablaArray[2][0],
-  origen : tablaArray[2][1],
+  origen : tablaArray[2][1] === "LOS ESPINOS 2541" ? "LOS ESPINOS 2541" : "EXEQUIEL FERNANDEZ 3685  BOD-G",
+  seUsoExtensionDeChrome : tablaArray[2][2],
   fecha : tablaArray[15][1],
-  cantidades : [tablaArray[3][0].trim(),tablaArray[4][0].trim(),tablaArray[5][0].trim(),tablaArray[6][0].trim(),tablaArray[7][0].trim(),tablaArray[8][0].trim(),tablaArray[9][0].trim(),tablaArray[10][0].trim(),tablaArray[11][0].trim(),tablaArray[12][0].trim()],
-  items : [tablaArray[3][1],tablaArray[4][1],tablaArray[5][1],tablaArray[6][1],tablaArray[7][1],tablaArray[8][1],tablaArray[9][1],tablaArray[10][1],tablaArray[11][1],tablaArray[12][1]],
-  precios : [tablaArray[3][2].replace('$',''),tablaArray[4][2].replace('$',''),tablaArray[5][2].replace('$',''),tablaArray[6][2].replace('$',''),tablaArray[7][2].replace('$',''),tablaArray[8][2].replace('$',''),tablaArray[9][2].replace('$',''),tablaArray[10][2].replace('$',''),tablaArray[11][2].replace('$',''),tablaArray[12][2].replace('$','')],
-  subtotales : [tablaArray[3][3].replace('$','').replace('<br>',''),tablaArray[4][3].replace('$','').replace('<br>',''),tablaArray[5][3].replace('$','').replace('<br>',''),tablaArray[6][3].replace('$','').replace('<br>',''),tablaArray[7][3].replace('$','').replace('<br>',''),tablaArray[8][3].replace('$','').replace('<br>',''),tablaArray[9][3].replace('$','').replace('<br>',''),tablaArray[10][3].replace('$','').replace('<br>',''),tablaArray[11][3].replace('$','').replace('<br>',''),tablaArray[12][3].replace('$','').replace('<br>','')],
+  'cantidades' : detalleItems(0),
+  'items' : detalleItems(1),
+  'precios' : detalleItems(2),
+  'subtotales' : detalleItems(3),
   neto : tablaArray[13][3].replace('$',''),
   iva : tablaArray[14][3].replace('$',''),
   total : tablaArray[15][3].replace('$',''),
